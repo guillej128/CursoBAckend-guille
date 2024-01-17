@@ -13,7 +13,7 @@ class ProductManager{
         let { title, description, price, img, code, stock, status, category } = nuevoObjeto;
 
         if (!title || !description || !price || !img || !code || !stock || !status || !category) {
-            console.log("Todos los campos son obligatorios. Por favor, completa la información del producto.");
+            console.log("Todos los campos son obligatorios.");
             return;
         }
 
@@ -36,11 +36,11 @@ class ProductManager{
 
         this.products.push(newProduct);
 
-        // Guardar la lista actualizada en el archivo
+        // Guarda la lista actualizada en el archivo
         await this.guardarArchivo(this.products);
     }
 
-    //Obtener los productos
+    //Obtiene los productos
     getProducts(){
         try {
             const arrayProductos = this.leerArchivo();
@@ -50,7 +50,7 @@ class ProductManager{
         }
 
     }
-    // Buscar producto por ID
+    // Busca los productos por ID
     async getProductById(id){
         try{
             const arrayProductos = await this.leerArchivo();
@@ -101,7 +101,7 @@ async updateProduct(id, productoActualizado) {
         const index = arrayProductos.findIndex(item => item.id === parseInt(id, 10));
         
         if (index !== -1) {
-            // Asegúrate de que productoActualizado tenga la propiedad 'id'
+           
             const updatedProduct = { ...arrayProductos[index], ...productoActualizado };
             arrayProductos[index] = updatedProduct;
             await fs.writeFile(this.path, JSON.stringify(arrayProductos, null, 2));
@@ -109,7 +109,6 @@ async updateProduct(id, productoActualizado) {
         } else {
             console.log("Producto no encontrado");
         }
-
     } catch (error) {
         console.log("Error al actualizar el producto indicado", error);
     }

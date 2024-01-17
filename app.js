@@ -1,5 +1,5 @@
 const express = require("express");
-// Creación de Servidor:
+
 const app = express();
 const PUERTO = 8080;
 
