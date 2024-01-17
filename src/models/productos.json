@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "Filtro de Aceite",
+    "description": "Pieza para filtrar el aceite del motor",
+    "price": 150,
+    "img": "Sin imagen",
+    "code": "abc123",
+    "stock": 250
+  },
+  {
+    "id": 2,
+    "title": "Bujía",
+    "description": "Pieza para encender la mezcla de aire y combustible",
+    "price": 300,
+    "img": "Sin imagen",
+    "code": "abc124",
+    "stock": 210
+  },
+  {
+    "id": 3,
+    "title": "Alternador",
+    "description": "Genera energía eléctrica para cargar la batería y alimentar sistemas eléctricos",
+    "price": 250,
+    "img": "Sin imagen",
+    "code": "abc125",
+    "stock": 250
+  },
+  {
+    "id": 4,
+    "title": "Pastillas de Freno",
+    "description": "Pieza para frenar el vehículo",
+    "price": 110,
+    "img": "Sin imagen",
+    "code": "abc126",
+    "stock": 250
+  },
+  {
+    "id": 5,
+    "title": "Neumático",
+    "description": "Componente que proporciona tracción y soporte de carga",
+    "price": 60,
+    "img": "Sin imagen",
+    "code": "abc127",
+    "stock": 250
+  },
+  {
+    "id": 6,
+    "title": "Filtro de Aire",
+    "description": "Elimina partículas del aire antes de que ingresen al motor",
+    "price": 150,
+    "img": "Sin imagen",
+    "code": "abc128",
+    "stock": 250
+  },
+  {
+    "id": 7,
+    "title": "Aceite de Motor",
+    "description": "Lubricante esencial para el motor del vehículo",
+    "price": 650,
+    "img": "Sin imagen",
+    "code": "abc129",
+    "stock": 250
+  },
+  {
+    "id": 8,
+    "title": "Batería de Coche",
+    "description": "Almacena energía eléctrica para arrancar el motor y alimentar sistemas eléctricos",
+    "price": 450,
+    "img": "Sin imagen",
+    "code": "abc1210",
+    "stock": 250
+  },
+  {
+    "id": 9,
+    "title": "Amortiguador",
+    "description": "Absorbe y disipa la energía generada por las irregularidades del terreno",
+    "price": 250,
+    "img": "Sin imagen",
+    "code": "abc1211",
+    "stock": 250
+  },
+  {
+    "id": 10,
+    "title": "Filtro de Combustible",
+    "description": "Elimina impurezas del combustible antes de llegar al motor",
+    "price": 150,
+    "img": "Sin imagen",
+    "code": "abc1212",
+    "stock": 250
+  }
+]
