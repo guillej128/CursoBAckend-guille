@@ -9,38 +9,47 @@ class ProductManager{
         this.path = path;
     }
 
-    async addProduct(nuevoObjeto) {
-        let { title, description, price, img, code, stock, status, category } = nuevoObjeto;
-
-        if (!title || !description || !price || !img || !code || !stock || !status || !category) {
-            console.log("Todos los campos son obligatorios.");
+    async addProduct({ title, description, price, img, code, stock, category, thumbnails }) {
+        try {
+          const arrayProductos = await this.leerArchivo();
+    
+          if (!title || !description || !price || !code || !stock || !category) {
+            console.log("Todos los campos son obligatorios");
             return;
-        }
-
-        if (this.products.some(item => item.code === code)) {
-            console.log("El código ingresado ya existe en la BD.");
+          }
+    
+          if (arrayProductos.some(item => item.code === code)) {
+            console.log("El código debe ser único");
             return;
-        }
-
-        const newProduct = {
-            id: ++ProductManager.lastId,
+          }
+    
+          const newProduct = {
             title,
             description,
             price,
             img,
             code,
             stock,
-            status,
-            category
-        };
-
-        this.products.push(newProduct);
-
-        // Guarda la lista actualizada en el archivo
-        await this.guardarArchivo(this.products);
-    }
-
-    //Obtiene los productos
+            category,
+            status: true,
+            thumbnails: thumbnails || []
+          };
+    
+          if (arrayProductos.length > 0) {
+            ProductManager.ultId = arrayProductos.reduce((maxId, product) => Math.max(maxId, product.id), 0);
+          }
+    
+          newProduct.id = ++ProductManager.ultId; 
+    
+          arrayProductos.push(newProduct);
+          await this.guardarArchivo(arrayProductos);
+        } catch (error) {
+          console.log("Error al agregar producto", error);
+          throw error; 
+        }
+      }
+    
+    //Obtener los productos
     getProducts(){
         try {
             const arrayProductos = this.leerArchivo();
@@ -50,7 +59,7 @@ class ProductManager{
         }
 
     }
-    // Busca los productos por ID
+    // Buscar producto por ID
     async getProductById(id){
         try{
             const arrayProductos = await this.leerArchivo();
@@ -83,14 +92,13 @@ class ProductManager{
     //Método Guardar
     async guardarArchivo(arrayProductos) {
         try {
-            const existingProducts = await this.leerArchivo();
-            existingProducts.push(...arrayProductos);
-            await fs.writeFile(this.path, JSON.stringify(existingProducts, null, 2));
+          await fs.writeFile(this.path, JSON.stringify(arrayProductos, null, 2));
         } catch (error) {
-            console.log("Error al guardar el Archivo", error);
+          console.log("Error al guardar el archivo", error);
+          throw error;
         }
-    }
-    
+      }
+   
 
     // Método Actualizar
 async updateProduct(id, productoActualizado) {
@@ -101,7 +109,7 @@ async updateProduct(id, productoActualizado) {
         const index = arrayProductos.findIndex(item => item.id === parseInt(id, 10));
         
         if (index !== -1) {
-           
+            // Asegúrate de que productoActualizado tenga la propiedad 'id'
             const updatedProduct = { ...arrayProductos[index], ...productoActualizado };
             arrayProductos[index] = updatedProduct;
             await fs.writeFile(this.path, JSON.stringify(arrayProductos, null, 2));
@@ -109,6 +117,7 @@ async updateProduct(id, productoActualizado) {
         } else {
             console.log("Producto no encontrado");
         }
+
     } catch (error) {
         console.log("Error al actualizar el producto indicado", error);
     }

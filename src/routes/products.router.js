@@ -1,48 +1,47 @@
 const express = require("express");
 const router = express.Router();
 
-const ProductManager = require("../controllers/product-manager.js");
-const productManager = new ProductManager("./src/models/productos.json");
+const ProductManager = require("../dao/db/product-manager-db.js");
+const productManager = new ProductManager();
 
 //Rutas:
 //Ver todos los productos
 router.get("/", async(req, res)=>{
     try{
-        const arrayProductos = await productManager.leerArchivo();
-        let limit = parseInt(req.query.limit);
+        const limit = parseInt(req.query.limit);
+        const productos = await productManager.getProducts();
         if(limit){
-            const arrayConLimite = arrayProductos.slice(0, limit);
-            return res.send(arrayConLimite);
+            res.json(productos.slice(0, limit));
         }else{
-            return res.send(arrayProductos)
+            res.json(productos)
         }
 
     }catch(error){
-        console.log(error);
-        return res.send("Error al procesar la solicitud.", error)};
+        console.error("Erros al obtener los productos",error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
+    }
 })
 
 //Método para ver Productos por ID
 router.get("/:pid", async (req, res) => {
+    const id = req.params.pid;
+
     try {
-        let pid = parseInt(req.params.pid);
-        const buscado = await productManager.getProductById(pid);
-        if (buscado) {
-            return res.send(buscado);
-        } else {
-            const errorRes = {
-                error: true,
-                message: "No se encuentra el Id del producto."
-            };
-            return res.status(404).json(errorRes);
+        const producto = await productManager.getProductById(id);
+        if (!producto) {
+            return res.json({
+                error: "No se pudo encontrar el Producto"
+            });
         }
+
+        res.json(producto);
     } catch (error) {
-        console.error(error);
-        const errorRes = {
-            error: true,
-            message: "Error en la búsqueda del ID."
-        };
-        res.status(500).json(errorRes);
+        console.error("Error al obtener producto", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
     }
 });
 
@@ -119,31 +118,18 @@ router.put("/:pid", async (req, res) => {
 
 //Método para borrar Producto
 router.delete("/:pid", async (req, res) => {
+    const id = req.params.pid;
+
     try {
-        const pid = parseInt(req.params.pid);
-
-        if (!pid) {
-            const errorRes = {
-                error: true,
-                message: "ID de producto no válido."
-            };
-            return res.status(400).json(errorRes);
-        }
-
-        await productManager.deleteProduct(pid);
-
-        const successRes = {
-            success: true,
-            message: "Producto eliminado exitosamente."
-        };
-        res.status(200).json(successRes);
+        await productManager.deleteProduct(id);
+        res.json({
+            message: "Producto eliminado exitosamente"
+        });
     } catch (error) {
-        console.error(error);
-        const errorRes = {
-            error: true,
-            message: "Error al intentar eliminar el producto."
-        };
-        res.status(500).json(errorRes);
+        console.error("Error al eliminar producto", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
     }
 });
 

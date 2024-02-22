@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 1s ease;
+    background-color: #f0f0f0; /* Cambio de color de fondo */
+    animation: changeColor 15s infinite; /* Reducción de la duración de la animación */
+}
+
+h1 {
+    text-align: center;
+    color: #333; /* Cambio de color del texto */
+}
+
+.contenedorProductos {
+    padding: 15px; /* Reducción del padding */
+    margin: 15px; /* Reducción del margen */
+}
+
+.contenedorCards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* Cambio en la distribución del espacio */
+    flex-wrap: wrap;
+}
+
+.card {
+    border: 2px solid #007bff; /* Cambio de color del borde */
+    border-radius: 10px; /* Aumento del radio del borde */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 12px; /* Ajuste en el margen */
+    padding: 12px; /* Ajuste en el padding */
+    min-width: 180px; /* Reducción del ancho mínimo */
+    max-width: 250px; /* Reducción del ancho máximo */
+    background-color: #f8f9fa; /* Cambio de color de fondo */
+    transition: box-shadow 0.3s ease;
+}
+
+.boton {
+    display: inline-block; /* Cambio en la visualización del botón */
+    margin: 0 auto; /* Ajuste en el margen */
+}
+
+.card:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Ajuste en la sombra al pasar el ratón */
+}
+
+.formCard {
+    display: flex;
+    flex-direction: column;
+    max-width: 380px; /* Reducción del ancho máximo */
+    margin: 0 auto;
+    padding: 18px; /* Ajuste en el padding */
+    background-color: #fff; /* Cambio de color de fondo */
+    border: 2px solid #28a745; /* Cambio de color del borde */
+    border-radius: 12px; /* Aumento del radio del borde */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.formCard input,
+.formCard select {
+    margin-bottom: 12px; /* Ajuste en el margen inferior */
+    padding: 8px; /* Ajuste en el padding */
+    border: 1px solid #6c757d; /* Cambio de color del borde */
+    border-radius: 6px; /* Aumento del radio del borde */
+    font-size: 14px;
+}
+
+.formCard select {
+    cursor: pointer;
+}
+
+.formCard button {
+    padding: 10px 15px;
+    background-color: #dc3545; /* Cambio de color de fondo */
+    color: #fff;
+    border: none;
+    border-radius: 6px; /* Aumento del radio del borde */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.formCard button:hover {
+    background-color: #c82333; /* Cambio de color de fondo al pasar el ratón */
+}
+
+.tituloFormulario {
+    font-size: 22px; /* Reducción del tamaño del texto */
+    color: #333;
+    margin-bottom: 16px; /* Ajuste en el margen inferior */
+    text-align: center;
+}
